@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+    <title>Clima App - Enyel</title>
+  </head>
+  <body>
+    <div class="main-container">
+      <div class="header">
+        <div class="input-container">
+          <div class="input-ciudad-container" id="inputContainer">
+            <form action="#" id="formulario" class="formulario">
+              <input
+                type="text"
+                id="ciudad"
+                class="input-ciudad"
+                placeholder="Escriba su ciudad"
+              />
+              <button class="btn-buscar">
+                <img class="icon-buscar" src="public/Icons/search.svg" alt="" />
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div class="unidad-termperatura">
+          <div class="uni">
+            <p class="celsius" id="celsius"><sup>o</sup>C</p>
+          </div>
+          <div class="uni">
+            <p class="faren" id="faren"><sup>o</sup>F</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="secction" id="section">
+        <div class="sk-fading-circle oculto" id="load">
+          <div class="sk-circle1 sk-circle"></div>
+          <div class="sk-circle2 sk-circle"></div>
+          <div class="sk-circle3 sk-circle"></div>
+          <div class="sk-circle4 sk-circle"></div>
+          <div class="sk-circle5 sk-circle"></div>
+          <div class="sk-circle6 sk-circle"></div>
+          <div class="sk-circle7 sk-circle"></div>
+          <div class="sk-circle8 sk-circle"></div>
+          <div class="sk-circle9 sk-circle"></div>
+          <div class="sk-circle10 sk-circle"></div>
+          <div class="sk-circle11 sk-circle"></div>
+          <div class="sk-circle12 sk-circle"></div>
+        </div>
+
+        <div class="error-container" id="errorContainer">
+          <img class="img-error" src="./public/Icons/error.svg" alt="" />
+          <div class="textos-error">
+            <h1 class="titulo-error">¡Hubo un error!</h1>
+            <p class="parra-error">
+              Debe permitir acceso a la ubicacion o escribir una ciudad valida.
+            </p>
+          </div>
+        </div>
+
+        <div class="cta-primary">
+          <div class="nombre_hora">
+            <h1 class="ciudad" id="text-ciudad"></h1>
+            <p class="feha-hora" id="fecha_hora"></p>
+          </div>
+          <div class="info_clima">
+            <div class="estado" id="estado"></div>
+            <div class="img-estado-container">
+              <img class="img-estado" src="" id="img_estado" />
+            </div>
+            <div class="numeros-clima">
+              <p class="grados" id="numero-grados"></p>
+              <div class="min-max-clima-container">
+                <p class="min-clima" id="min-clima"></p>
+                <p class="max-clima" id="max-clima"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cta-secundary grid-container">
+          <div class="fell-container data-clima-container">
+            <img
+              class="img-data-clima-secundary"
+              src="public/Icons/thermometer.svg"
+              alt=""
+            />
+            <div class="data-clima">
+              <p class="data-name">Real Feel</p>
+              <p class="data-number" id="feel"></p>
+            </div>
+          </div>
+
+          <div class="fell-container data-clima-container">
+            <img
+              class="img-data-clima-secundary"
+              src="public/Icons/droplets.svg"
+              alt=""
+            />
+            <div class="data-clima">
+              <p class="data-name">Humidity</p>
+              <p class="data-number" id="humedad"></p>
+            </div>
+          </div>
+
+          <div class="fell-container data-clima-container">
+            <img
+              class="img-data-clima-secundary"
+              src="public/Icons/wind.svg"
+              alt=""
+            />
+            <div class="data-clima">
+              <p class="data-name">Wind</p>
+              <p class="data-number" id="viento"></p>
+            </div>
+          </div>
+
+          <div class="fell-container data-clima-container">
+            <img
+              class="img-data-clima-secundary"
+              src="public/Icons/webhook.svg"
+              alt=""
+            />
+            <div class="data-clima">
+              <p class="data-name">Pressure</p>
+              <p class="data-number" id="presion"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.6/lottie.min.js"></script>
+  </body>
+</html>
