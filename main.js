@@ -82,7 +82,7 @@ function obtenerCiudad(e) {
 // Funcion que me da lat y lon
 function llamarAPI(ciudad) {
 
-  const urlCiudad = `http://api.openweathermap.org/geo/1.0/direct?q=${ciudad}&appid=${apiKey}`;
+  const urlCiudad = `https://api.openweathermap.org/geo/1.0/direct?q=${ciudad}&appid=${apiKey}`;
   fetch(urlCiudad)
     .then(respuesta => {
       return respuesta.json();
@@ -218,17 +218,17 @@ ${description}
 
   switch (description) {
     case 'Clouds':
-      imgEstado.src = '/public/Icons/cloudy.svg';
+      imgEstado.src = '/Icons/cloudy.svg';
       break;
     case 'Rain':
-      imgEstado.src = '/public/Icons/droplets.svg';
+      imgEstado.src = '/Icons/droplets.svg';
       break;
 
     case 'Clear':
-      imgEstado.src = '/public/Icons/sun.svg';
+      imgEstado.src = '/Icons/sun.svg';
       break;
     case 'Mist':
-      imgEstado.src = '/public/Icons/foggy.svg';
+      imgEstado.src = '/Icons/foggy.svg';
       break;
 
     default:
@@ -237,9 +237,9 @@ ${description}
 
   //Funciones para convertir a celsius y faren
   btnCelsius.addEventListener('click', () => {
-    temp_celsius = temp - 273.15;
-    temp_celsius_min = temp_min - 273.15;
-    temp_celsius_max = temp_max - 273.15;
+    const temp_celsius = temp - 273.15;
+    const temp_celsius_min = temp_min - 273.15;
+    const temp_celsius_max = temp_max - 273.15;
     const tempCelRoundtemp_celsius = Math.round(temp_celsius);
     const tempCelRoundmin_celsius = Math.round(temp_celsius_min);
     const tempCelRoundmax_celsius = Math.round(temp_celsius_max);
