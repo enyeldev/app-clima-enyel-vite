@@ -260,9 +260,9 @@ ${description}
   });
 
   btnFaren.addEventListener('click', () => {
-    temp_faren = 1.8 * (temp - 273.15) + 32;
-    temp_faren_min = 1.8 * (temp_min - 273.15) + 32;
-    temp_faren_max = 1.8 * (temp_max - 273.15) + 32;
+    const temp_faren = 1.8 * (temp - 273.15) + 32;
+    const temp_faren_min = 1.8 * (temp_min - 273.15) + 32;
+    const temp_faren_max = 1.8 * (temp_max - 273.15) + 32;
 
     const temp_faren_round = Math.round(temp_faren);
     const temp_faren_min_round = Math.round(temp_faren_min);
