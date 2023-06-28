@@ -32,7 +32,7 @@ const formulario = document.querySelector('#formulario');
 
 
 // Formato de clima
-let format = 'K';
+// let format = 'K';
 
 // Eventos
 document.addEventListener('DOMContentLoaded', () => {
@@ -296,9 +296,9 @@ ${description}
 
   //Funciones para convertir a celsius y faren
   btnCelsius.addEventListener('click', () => {
-    let formatConvert = 'C';
+    // let formatConvert = 'C';
 
-    alertaFormato(formatConvert);
+    // alertaFormato(formatConvert);
 
     const temp_celsius = temp - 273.15;
     const temp_celsius_min = temp_min - 273.15;
@@ -322,14 +322,14 @@ ${description}
         `;
 
 
-    format = formatConvert;
+    // format = formatConvert;
   });
 
   btnFaren.addEventListener('click', () => {
 
-    let formatConvert = 'F';
+    // let formatConvert = 'F';
 
-    alertaFormato(formatConvert);
+    // alertaFormato(formatConvert);
 
 
     const temp_faren = 1.8 * (temp - 273.15) + 32;
@@ -354,15 +354,15 @@ ${description}
         
         `;
 
-    format = formatConvert;
+    // format = formatConvert;
   })
 
   btnKelvin.addEventListener('click', () => {
 
 
-    let formatConvert = 'K';
+    // let formatConvert = 'K';
 
-    alertaFormato(formatConvert);
+    // alertaFormato(formatConvert);
     // Ingresamos la temperatura, maxima y minima
     temperatura.innerHTML = `
   ${Math.round(temp)}<sup><sup>o</sup>K</sup>
@@ -389,7 +389,7 @@ ${description}
   `;
 
 
-    format = formatConvert;
+    // format = formatConvert;
   })
 
 }
@@ -432,14 +432,14 @@ function erroDeBusqueda() {
 }
 
 
-function alertaFormato(formatConvert) {
-  if (formatConvert === format) {
-    unidades.classList.add('unidad-alert');
+// function alertaFormato(formatConvert) {
+//   if (formatConvert === format) {
+//     unidades.classList.add('unidad-alert');
 
-    setTimeout(() => {
-      unidades.classList.remove('unidad-alert');
-    }, 2000);
-  }
-}
+//     setTimeout(() => {
+//       unidades.classList.remove('unidad-alert');
+//     }, 2000);
+//   }
+// }
 
 
