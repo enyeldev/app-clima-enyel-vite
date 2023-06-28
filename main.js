@@ -16,6 +16,7 @@ const estadoDiv = document.querySelector('#estado');
 const fechaHora = document.querySelector('#fecha_hora');
 const btnCelsius = document.querySelector('#celsius');
 const btnFaren = document.querySelector('#faren');
+const btnKelvin = document.querySelector('#kelvin');
 const imgEstado = document.querySelector('#img_estado');
 const section = document.querySelector('#section');
 const loading = document.querySelector('#load');
@@ -29,6 +30,9 @@ const inputContainerCiudad = document.querySelector('#inputContainer');
 
 const formulario = document.querySelector('#formulario');
 
+
+// Formato de clima
+let format = 'K';
 
 // Eventos
 document.addEventListener('DOMContentLoaded', () => {
@@ -161,31 +165,82 @@ function mostrarHtml(data, nombre, estado) {
   }
 
 
-
-  // Ingresamos la temperatura, maxima y minima
-  temperatura.innerHTML = `
-    ${Math.round(temp)}<sup>o</sup>
+  if (format === 'K') {
+    // Ingresamos la temperatura, maxima y minima
+    temperatura.innerHTML = `
+    ${Math.round(temp)}<sup><sup>o</sup>K</sup>
     `;
 
-  minClima.innerHTML = `
+    minClima.innerHTML = `
     
-    Min: ${Math.round(temp_min)}<sup>o</sup>
-    
-    `;
-
-  maxClima.innerHTML = `
-    
-    Max: ${Math.round(temp_max)}<sup>o</sup>
+    Min: ${Math.round(temp_min)}<sup><sup>o</sup>K</sup>
     
     `;
 
-
-  // Datos del real feel
-  feel.innerHTML = `
+    maxClima.innerHTML = `
     
-    ${Math.round(feels_like)}<sup>o</sup>
+    Max: ${Math.round(temp_max)}<sup><sup>o</sup>K</sup>
     
     `;
+
+
+    // Datos del real feel
+    feel.innerHTML = `
+    
+    ${Math.round(feels_like)}<sup><sup>o</sup>K</sup>
+    
+    `;
+  } else if (format === 'C') {
+    // Ingresamos la temperatura, maxima y minima
+    temperatura.innerHTML = `
+    ${Math.round(temp)}<sup><sup>o</sup>C</sup>
+    `;
+
+    minClima.innerHTML = `
+    
+    Min: ${Math.round(temp_min)}<sup><sup>o</sup>C</sup>
+    
+    `;
+
+    maxClima.innerHTML = `
+    
+    Max: ${Math.round(temp_max)}<sup><sup>o</sup>C</sup>
+    
+    `;
+
+
+    // Datos del real feel
+    feel.innerHTML = `
+    
+    ${Math.round(feels_like)}<sup><sup>o</sup>C</sup>
+    
+    `;
+  } else if (format === 'F') {
+    // Ingresamos la temperatura, maxima y minima
+    temperatura.innerHTML = `
+    ${Math.round(temp)}<sup><sup>o</sup>F</sup>
+    `;
+
+    minClima.innerHTML = `
+    
+    Min: ${Math.round(temp_min)}<sup><sup>o</sup>F</sup>
+    
+    `;
+
+    maxClima.innerHTML = `
+    
+    Max: ${Math.round(temp_max)}<sup><sup>o</sup>F</sup>
+    
+    `;
+
+
+    // Datos del real feel
+    feel.innerHTML = `
+    
+    ${Math.round(feels_like)}<sup><sup>o</sup>F</sup>
+    
+    `;
+  }
 
 
   // Humedad
@@ -231,12 +286,20 @@ ${description}
       imgEstado.src = '/Icons/foggy.svg';
       break;
 
+    case 'Thunderstorm':
+      imgEstado.src = '/Icons/thunderstorm.svg';
+      break;
+
     default:
       break;
   }
 
   //Funciones para convertir a celsius y faren
   btnCelsius.addEventListener('click', () => {
+    let formatConvert = 'C';
+
+    alertaFormato(formatConvert);
+
     const temp_celsius = temp - 273.15;
     const temp_celsius_min = temp_min - 273.15;
     const temp_celsius_max = temp_max - 273.15;
@@ -244,9 +307,9 @@ ${description}
     const tempCelRoundmin_celsius = Math.round(temp_celsius_min);
     const tempCelRoundmax_celsius = Math.round(temp_celsius_max);
 
-    temperatura.innerHTML = `${tempCelRoundtemp_celsius}<sup>o</sup>`;
-    minClima.innerHTML = `Max: ${tempCelRoundmin_celsius}<sup>o</sup>`;
-    maxClima.innerHTML = `Min: ${tempCelRoundmax_celsius}<sup>o</sup>`;
+    temperatura.innerHTML = `${tempCelRoundtemp_celsius}<sup><sup>o</sup>C</sup>`;
+    minClima.innerHTML = `Max: ${tempCelRoundmin_celsius}<sup><sup>o</sup>C</sup>`;
+    maxClima.innerHTML = `Min: ${tempCelRoundmax_celsius}<sup><sup>o</sup>C</sup>`;
 
 
     const feel_celsius = feels_like - 273.15;
@@ -254,12 +317,21 @@ ${description}
 
     feel.innerHTML = `
         
-        ${feel_celsius_round}<sup>o</sup>
+        ${feel_celsius_round}<sup><sup>o</sup>C</sup>
         
         `;
+
+
+    format = formatConvert;
   });
 
   btnFaren.addEventListener('click', () => {
+
+    let formatConvert = 'F';
+
+    alertaFormato(formatConvert);
+
+
     const temp_faren = 1.8 * (temp - 273.15) + 32;
     const temp_faren_min = 1.8 * (temp_min - 273.15) + 32;
     const temp_faren_max = 1.8 * (temp_max - 273.15) + 32;
@@ -268,9 +340,9 @@ ${description}
     const temp_faren_min_round = Math.round(temp_faren_min);
     const temp_faren_max_round = Math.round(temp_faren_max);
 
-    temperatura.innerHTML = `${temp_faren_round}<sup>o</sup>`;
-    minClima.innerHTML = `Max: ${temp_faren_min_round}<sup>o</sup>`;
-    maxClima.innerHTML = `Min: ${temp_faren_max_round}<sup>o</sup>`;
+    temperatura.innerHTML = `${temp_faren_round}<sup><sup>o</sup>F</sup>`;
+    minClima.innerHTML = `Max: ${temp_faren_min_round}<sup><sup>o</sup>F</sup>`;
+    maxClima.innerHTML = `Min: ${temp_faren_max_round}<sup><sup>o</sup>F</sup>`;
 
 
     const feel_faren = 1.8 * (feels_like - 273.15) + 32;
@@ -278,11 +350,46 @@ ${description}
 
     feel.innerHTML = `
         
-        ${feel_faren_round}<sup>o</sup>
+        ${feel_faren_round}<sup><sup>o</sup>F</sup>
         
         `;
 
+    format = formatConvert;
+  })
 
+  btnKelvin.addEventListener('click', () => {
+
+
+    let formatConvert = 'K';
+
+    alertaFormato(formatConvert);
+    // Ingresamos la temperatura, maxima y minima
+    temperatura.innerHTML = `
+  ${Math.round(temp)}<sup><sup>o</sup>K</sup>
+  `;
+
+    minClima.innerHTML = `
+  
+  Min: ${Math.round(temp_min)}<sup><sup>o</sup>K</sup>
+  
+  `;
+
+    maxClima.innerHTML = `
+  
+  Max: ${Math.round(temp_max)}<sup><sup>o</sup>K</sup>
+  
+  `;
+
+
+    // Datos del real feel
+    feel.innerHTML = `
+  
+  ${Math.round(feels_like)}<sup><sup>o</sup>K</sup>
+  
+  `;
+
+
+    format = formatConvert;
   })
 
 }
@@ -324,5 +431,15 @@ function erroDeBusqueda() {
   errorContainer.classList.add('error-container-view');
 }
 
+
+function alertaFormato(formatConvert) {
+  if (formatConvert === format) {
+    unidades.classList.add('unidad-alert');
+
+    setTimeout(() => {
+      unidades.classList.remove('unidad-alert');
+    }, 2000);
+  }
+}
 
 

@@ -199,20 +199,39 @@ body {
   cursor: pointer;
 }
 
-.celsius {
+.unidad-alert {
+  position: relative;
+}
+.unidad-alert::after {
+  width: 300px;
+  content: "Los datos ya se muestran en este formato";
+  display: flex;
+  position: absolute;
+  color: #fcfafa;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 0.5em;
+  top: 3.4em;
+  border-radius: 10px;
+  background: #42424131;
+}
+
+/* .celsius {
   position: relative;
 }
 .celsius:hover::after {
   content: "Celsius";
   display: block;
-  /* width: 200px; */
+  /* width: 200px; 
   position: absolute;
   font-size: 0.6em;
-  background: #42424131;
+  background: #292929;
   padding: 1em;
   top: 2.5em;
-  left: -1.4em;
+  left: -1.2em;
   border-radius: 10px;
+  z-index: 10;
 }
 
 .faren {
@@ -221,15 +240,33 @@ body {
 .faren:hover::after {
   content: "Farenheit";
   display: block;
-  /* width: 200px; */
+  /* width: 200px; 
   position: absolute;
   font-size: 0.6em;
-  background: #42424131;
+  background: #292929;
   padding: 1em;
   top: 2.5em;
   left: -2em;
   border-radius: 10px;
+  z-index: 10;
 }
+
+.kelvin {
+  position: relative;
+}
+.kelvin:hover::after {
+  content: "Kelvin";
+  display: block;
+  /* width: 200px; 
+  position: absolute;
+  font-size: 0.6em;
+  background: #292929;
+  padding: 1em;
+  top: 2.5em;
+  left: -1em;
+  border-radius: 10px;
+  z-index: 10;
+} */
 
 /* HEADER */
 
