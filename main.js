@@ -165,82 +165,32 @@ function mostrarHtml(data, nombre, estado) {
   }
 
 
-  if (format === 'K') {
-    // Ingresamos la temperatura, maxima y minima
-    temperatura.innerHTML = `
+
+  // Ingresamos la temperatura, maxima y minima
+  temperatura.innerHTML = `
     ${Math.round(temp)}<sup><sup>o</sup>K</sup>
     `;
 
-    minClima.innerHTML = `
+  minClima.innerHTML = `
     
     Min: ${Math.round(temp_min)}<sup><sup>o</sup>K</sup>
     
     `;
 
-    maxClima.innerHTML = `
+  maxClima.innerHTML = `
     
     Max: ${Math.round(temp_max)}<sup><sup>o</sup>K</sup>
     
     `;
 
 
-    // Datos del real feel
-    feel.innerHTML = `
+  // Datos del real feel
+  feel.innerHTML = `
     
     ${Math.round(feels_like)}<sup><sup>o</sup>K</sup>
     
     `;
-  } else if (format === 'C') {
-    // Ingresamos la temperatura, maxima y minima
-    temperatura.innerHTML = `
-    ${Math.round(temp)}<sup><sup>o</sup>C</sup>
-    `;
 
-    minClima.innerHTML = `
-    
-    Min: ${Math.round(temp_min)}<sup><sup>o</sup>C</sup>
-    
-    `;
-
-    maxClima.innerHTML = `
-    
-    Max: ${Math.round(temp_max)}<sup><sup>o</sup>C</sup>
-    
-    `;
-
-
-    // Datos del real feel
-    feel.innerHTML = `
-    
-    ${Math.round(feels_like)}<sup><sup>o</sup>C</sup>
-    
-    `;
-  } else if (format === 'F') {
-    // Ingresamos la temperatura, maxima y minima
-    temperatura.innerHTML = `
-    ${Math.round(temp)}<sup><sup>o</sup>F</sup>
-    `;
-
-    minClima.innerHTML = `
-    
-    Min: ${Math.round(temp_min)}<sup><sup>o</sup>F</sup>
-    
-    `;
-
-    maxClima.innerHTML = `
-    
-    Max: ${Math.round(temp_max)}<sup><sup>o</sup>F</sup>
-    
-    `;
-
-
-    // Datos del real feel
-    feel.innerHTML = `
-    
-    ${Math.round(feels_like)}<sup><sup>o</sup>F</sup>
-    
-    `;
-  }
 
 
   // Humedad
