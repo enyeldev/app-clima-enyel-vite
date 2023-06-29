@@ -38,8 +38,7 @@ body {
 .input-container {
   /* width: 100%; */
   display: flex;
-  flex-direction: column;
-  gap: 1em;
+  gap: 0.5em;
   align-items: center;
   position: relative;
 }
@@ -162,6 +161,23 @@ body {
 .material-symbols-outlined {
   /* position: absolute; */
   right: 0;
+}
+
+.btn-ubicacion {
+  /* width: 250px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+  border-radius: 10px;
+  background: #42424131;
+  color: #fcfafa;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.btn-ubicacion img {
+  width: 2em;
 }
 
 .uni {
@@ -413,6 +429,10 @@ body {
   .cta-secundary {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .input-container {
+    flex-direction: row-reverse;
+  }
 }
 
 /* MEDIA QUERI */
@@ -584,6 +604,16 @@ body {
   flex-direction: column;
   align-items: center;
   /* gap: 1em; */
+  display: none;
+}
+
+.error-busqueda {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.error-busqueda-oculto {
   display: none;
 }
 

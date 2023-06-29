@@ -21,32 +21,30 @@ const imgEstado = document.querySelector('#img_estado');
 const section = document.querySelector('#section');
 const loading = document.querySelector('#load');
 const errorContainer = document.querySelector('#errorContainer');
+const errorBusqueda = document.querySelector('#errorBusqueda');
 
 const ctaSecundary = document.querySelector('.cta-secundary');
 const ctaPrimary = document.querySelector('.cta-primary');
 const unidades = document.querySelector('.unidad-termperatura');
 
+const btnUbicacion = document.querySelector('#btn-ubicacion');
+
 const inputContainerCiudad = document.querySelector('#inputContainer');
 
 const formulario = document.querySelector('#formulario');
 
-
-// Formato de clima
-// let format = 'K';
-
 // Eventos
 document.addEventListener('DOMContentLoaded', () => {
   // Solicita permiso a la ubicacion al usuario al cargar la pagina
-  navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-
+  btnUbicacion.addEventListener('click', pedirUbicacion)
   // Al enviar el formulario llama la funcion del API
   formulario.addEventListener('submit', obtenerCiudad);
-
-  // cuando deja de hacer focus al input tambien llama API
-  inputCiudad.addEventListener('blur', obtenerCiudad);
-
 })
 
+// Funcion  para pedir ubicacion local
+function pedirUbicacion() {
+  navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+}
 
 // Funciones del GeoLocation
 function successCallback(position) {
@@ -57,11 +55,15 @@ function successCallback(position) {
 }
 
 function errorCallback(error) {
-  if (error.code === error.PERMISSION_DENIED) {
+  // Quitar el mensahje de error de busqueda
+  errorBusqueda.classList.add('error-busqueda-oculto');
+
+  console.log(error);
+  if (error.code === error.PERMISSION_DENIED || error.code === error.POSITION_UNAVAILABLE
+  ) {
     erroDeBusqueda();
   }
 }
-
 
 // Funcion que llama API para obtener lat y lon
 function obtenerCiudad(e) {
@@ -100,8 +102,11 @@ function llamarAPI(ciudad) {
       llamarApiClima(lat, lon, nombre, estado)
     })
     .catch(error => {
+      console.log(error);
       loading.classList.remove('oculto');
       if (error) {
+        // Quitar el mensahje de error de busqueda
+        errorBusqueda.classList.add('error-busqueda-oculto');
         loading.classList.add('oculto');
         erroDeBusqueda();
       }
@@ -111,6 +116,10 @@ function llamarAPI(ciudad) {
 
 // Funcion que me datos del clima
 function llamarApiClima(lat, lon, nombre, estado) {
+
+  // Quitar el mensahje de error de busqueda
+  errorBusqueda.classList.add('error-busqueda-oculto');
+
   const urlClima = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
   // ver si se estan mostrando y ocultar
@@ -121,7 +130,6 @@ function llamarApiClima(lat, lon, nombre, estado) {
   if (errorContainer.classList.contains('error-container-view')) {
     errorContainer.classList.remove('error-container-view');
   }
-
 
   // Mostra un loading
   loading.classList.remove('oculto');
@@ -139,10 +147,6 @@ function llamarApiClima(lat, lon, nombre, estado) {
     .catch(error => {
       console.log(error);
     })
-
-
-
-
 }
 
 // Generar HTMl
@@ -150,7 +154,6 @@ function mostrarHtml(data, nombre, estado) {
   ctaPrimary.classList.add('cta-primary-view');
   ctaSecundary.classList.add('cta-secundary-view');
   unidades.classList.add('unidad-termperatura-view');
-
 
   const { feels_like, humidity, pressure, temp, temp_max, temp_min } = data.main;
   const { speed } = data.wind;
@@ -164,61 +167,42 @@ function mostrarHtml(data, nombre, estado) {
     nombreCiudad.textContent = `${data.name}`;
   }
 
-
-
   // Ingresamos la temperatura, maxima y minima
   temperatura.innerHTML = `
     ${Math.round(temp)}<sup><sup>o</sup>K</sup>
     `;
 
-  minClima.innerHTML = `
-    
+  minClima.innerHTML = `    
     Min: ${Math.round(temp_min)}<sup><sup>o</sup>K</sup>
-    
     `;
 
   maxClima.innerHTML = `
-    
     Max: ${Math.round(temp_max)}<sup><sup>o</sup>K</sup>
-    
     `;
-
 
   // Datos del real feel
-  feel.innerHTML = `
-    
-    ${Math.round(feels_like)}<sup><sup>o</sup>K</sup>
-    
+  feel.innerHTML = `    
+    ${Math.round(feels_like)}<sup><sup>o</sup>K</sup>    
     `;
 
-
-
   // Humedad
-  humedad.innerHTML = `
-    
-    ${humidity}%
-    
+  humedad.innerHTML = `    
+    ${humidity}%    
     `;
 
   // Viento
   viento.innerHTML = `
-
     ${speed}m/s
-
 ` ;
 
   // presion
   presion.innerHTML = `
-
 ${pressure}hPa
-
 `;
 
 
   estadoDiv.innerHTML = `
-
 ${description}
-
 `;
 
   switch (description) {
@@ -246,10 +230,6 @@ ${description}
 
   //Funciones para convertir a celsius y faren
   btnCelsius.addEventListener('click', () => {
-    // let formatConvert = 'C';
-
-    // alertaFormato(formatConvert);
-
     const temp_celsius = temp - 273.15;
     const temp_celsius_min = temp_min - 273.15;
     const temp_celsius_max = temp_max - 273.15;
@@ -261,27 +241,15 @@ ${description}
     minClima.innerHTML = `Max: ${tempCelRoundmin_celsius}<sup><sup>o</sup>C</sup>`;
     maxClima.innerHTML = `Min: ${tempCelRoundmax_celsius}<sup><sup>o</sup>C</sup>`;
 
-
     const feel_celsius = feels_like - 273.15;
     const feel_celsius_round = Math.round(feel_celsius);
 
-    feel.innerHTML = `
-        
+    feel.innerHTML = `        
         ${feel_celsius_round}<sup><sup>o</sup>C</sup>
-        
         `;
-
-
-    // format = formatConvert;
   });
 
   btnFaren.addEventListener('click', () => {
-
-    // let formatConvert = 'F';
-
-    // alertaFormato(formatConvert);
-
-
     const temp_faren = 1.8 * (temp - 273.15) + 32;
     const temp_faren_min = 1.8 * (temp_min - 273.15) + 32;
     const temp_faren_max = 1.8 * (temp_max - 273.15) + 32;
@@ -294,52 +262,32 @@ ${description}
     minClima.innerHTML = `Max: ${temp_faren_min_round}<sup><sup>o</sup>F</sup>`;
     maxClima.innerHTML = `Min: ${temp_faren_max_round}<sup><sup>o</sup>F</sup>`;
 
-
     const feel_faren = 1.8 * (feels_like - 273.15) + 32;
     const feel_faren_round = Math.round(feel_faren);
 
-    feel.innerHTML = `
-        
-        ${feel_faren_round}<sup><sup>o</sup>F</sup>
-        
+    feel.innerHTML = `        
+        ${feel_faren_round}<sup><sup>o</sup>F</sup>        
         `;
-
-    // format = formatConvert;
   })
 
   btnKelvin.addEventListener('click', () => {
-
-
-    // let formatConvert = 'K';
-
-    // alertaFormato(formatConvert);
     // Ingresamos la temperatura, maxima y minima
     temperatura.innerHTML = `
   ${Math.round(temp)}<sup><sup>o</sup>K</sup>
   `;
 
     minClima.innerHTML = `
-  
   Min: ${Math.round(temp_min)}<sup><sup>o</sup>K</sup>
-  
   `;
 
     maxClima.innerHTML = `
-  
-  Max: ${Math.round(temp_max)}<sup><sup>o</sup>K</sup>
-  
+  Max: ${Math.round(temp_max)}<sup><sup>o</sup>K</sup>  
   `;
-
 
     // Datos del real feel
-    feel.innerHTML = `
-  
-  ${Math.round(feels_like)}<sup><sup>o</sup>K</sup>
-  
+    feel.innerHTML = `  
+  ${Math.round(feels_like)}<sup><sup>o</sup>K</sup>  
   `;
-
-
-    // format = formatConvert;
   })
 
 }
@@ -361,35 +309,18 @@ function obtenerFecha(dt) {
   };
 
   const formattedDate = date.toLocaleString('en-US', options);
-
-
   fechaHora.innerHTML = formattedDate;
 }
 
 // Funcion en caso de error
 function erroDeBusqueda() {
-  if (unidades.classList.contains('unidad-termperatura-view') && ctaPrimary.classList.contains('cta-primary-view') &&
-    ctaSecundary.classList.contains('cta-secundary-view')) {
+  if (
+    unidades.classList.contains('unidad-termperatura-view') || ctaPrimary.classList.contains('cta-primary-view') || ctaSecundary.classList.contains('cta-secundary-view')) {
     unidades.classList.remove('unidad-termperatura-view');
     ctaPrimary.classList.remove('cta-primary-view');
     ctaSecundary.classList.remove('cta-secundary-view');
-    // console.log('se ve');
   }
-
-
-
   errorContainer.classList.add('error-container-view');
 }
-
-
-// function alertaFormato(formatConvert) {
-//   if (formatConvert === format) {
-//     unidades.classList.add('unidad-alert');
-
-//     setTimeout(() => {
-//       unidades.classList.remove('unidad-alert');
-//     }, 2000);
-//   }
-// }
 
 
